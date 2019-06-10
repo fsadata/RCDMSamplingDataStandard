@@ -1,5 +1,4 @@
-
-# Raw Cows Drinking Milk Sampling Results Data Standard
+#Raw Cows Drinking Milk Sampling Results Data Standard
 
 ### What Is This Document?
 
@@ -17,18 +16,20 @@ This document is written for Laboratory users who need to submit raw cows drinki
 - [Field Definitions](#field-definitions) Complete definitions for each field in the standard, includes constraints and specific data type formatting requirements.  
  1. [Sample ID](#1-sample-id)  
  2. [Producer ID](#2-producer-id) 
- 3. [Test Type](#3-test-type)
- 4. [Test Result](#4-test-result)  
- 5. [Sample Pass](#5-sample-pass)  
- 6. [Sample Stage](#6-sample-stage)   
- 7. [Sample From](#7-sample-from)  
- 8. [CPH](#8-cph)  
- 9. [Producer Name](#9-producer-name)  
- 10. [Producer Address](#10-producer-address)  
- 11. [Sample Date](#11-sample-date)  
- 12. [Start Testing Date](#12-start-testing-date)  
- 13. [Report Date](#13-report-date)  
- 14. [Next Sample](#14-next-sample)  
+ 3. [Lab](#3-lab)
+ 4. [Test Type](#4-test-type)
+ 5. [Test Result](#5-test-result)  
+ 6. [Sample Pass](#6-sample-pass)  
+ 7. [Sample Stage](#7-sample-stage)   
+ 8. [Sample From](#8-sample-from)  
+ 9. [CPH](#9-cph)  
+ 10. [Producer Name](#10-producer-name)  
+ 11. [Sample Date and Time](#11-sample-date-and-time) 
+ 12. [Sample Temperature at Collection](#12-sample-temperature-at-collection)
+ 13. [Receipt at Lab](#13-receipt-at-lab) 
+ 14. [Testing Date and Time](#14-testing-date-and-time)  
+ 15. [Sample Temperature at Testing](#15-sample-temperature-at-testing)
+ 16. [Report Date and Time](#16- report-date-and-time)  
 - [Supported File Types](#supported-file-types)
 - [Other Requirements](#other-requirements)
 - [File Naming Conventions](#file-naming-conventions)
@@ -42,18 +43,20 @@ Index | Field Name | Description | Data Type | Optional | Controlled Vocabulary 
 ------|------------|-------------|-----------|----------|-----------------------|-------
 1|sample_id|Sample unique identifier|Text|No|No|Lab
 2|producer_id|producer unique identifier|Text|No|No|Lab
-3|test_type|The type of test|Text|No|Yes|Lab
-4|test_result|The result of the test|Text|No|No|Lab
-5|sample_pass|Confirmation that sample passed or failed|Text|No|Yes|Lab
-6|sample_stage|The stage in the sampling process|Text|No|Yes|Lab
-7|sample_from|Where the sample was taken from|Text|No|Yes|Lab
-8|cph|County parish holding number of producer|Text|No|No|Lab
-9|producer_name|Name of producer|Text|No|No|Lab
-10|producer_address|Address od producer|Text|No|No|Lab
-11|sample_date|Date that the sample was taken|Date|No|No|Lab
-12|start_testing_date|Date that the testing started|Date|No|No|Lab
-13|report_date|Date that the data is submitted to the FSA|Date|No|No|Lab
-14|next_sample|Date or description of when the next sample should be taken|Text|No|No|Lab
+3|lab|The lab which undertook testing|Text|No|No|Lab
+4|test_type|The type of test|Text|No|Yes|Lab
+5|test_result|The result of the test|Text|No|No|Lab
+6|sample_pass|Confirmation that sample passed or failed|Text|No|Yes|Lab
+7|sample_stage|The stage in the sampling process|Text|No|Yes|Lab
+8|sample_from|Where the sample was taken from|Text|No|Yes|Lab
+9|cph|County parish holding number of producer|Text|No|No|Lab
+10|producer_name|Name of producer|Text|No|No|Lab
+11|sample_date_and_time|Date and time that the sample was taken|Datetime|No|No|Lab
+12|sample_temperature_at_collection|Temperature of the sample when collected|Text|No|No|Lab
+13|receipt_at_lab|Date and time sample received at lab|Datetime|No|No|Lab
+14|testing_date_and_time|Date and time that the testing started|Datetime|No|No|Lab
+15|sample_temperature_at_testing|Temperature of the sample when tested|Text|No|No|Lab
+16|report_date_and_time|Date and time that the data is submitted to the FSA|Datetime|No|No|Lab
 
 ## Field Definitions
 
@@ -71,37 +74,50 @@ Index | Field Name | Description | Data Type | Optional | Controlled Vocabulary 
 **Source:** Lab 
 **Comments:** The unique Producer reference number supplied to the laboratory by the FSA when a new producer is registered for the production of raw cows drinking milk. The reference will be quoted in the documentation accompanying the sample when the laboratory receives it.
 
-### 3. Test Type
+### 3. Lab
+**Field Name:** `lab`  
+**Data Type:** Text (32 character limit)  
+**Optional:** No  
+**Source:** Lab 
+**Comments:** The lab location which undertook the testing of the sample.
+
+### 4. Test Type
 **Field Name:** `test_type`  
 **Data Type:** Text (controlled vocabulary)    
 **Optional:** No  
 **Source:** Lab 
 **Comments:** The acceptable values for all tests will be provided by the FSA as a controlled vocabulary in a publicly available register. 
-### 4. Test Result
+
+### 5. Test Result
 **Field Name:** `test_result`  
 **Data Type:** Text (controlled vocabulary)    
 **Optional:** No  
 **Source:** Lab 
 **Comments:** The numeric figure giving the result of the test undertaken.
 
-### 5. Sample Pass
+### 6. Sample Pass
 **Field Name:** `sample_pass`  
 **Data Type:** Text (controlled vocabulary)    
 **Optional:** No  
 **Source:** Lab 
 **Comments:** `True` or `False`, determined by whether or not the sample passed the respective test.
 
-### 6. Sample Stage
+### 7. Sample Stage
 **Field Name:** `sample_stage`  
 **Data Type:** Text (controlled vocabulary)    
 **Optional:** No  
 **Source:** Lab 
 **Comments:** An indicator of the current stage in the sampling process. Acceptable values in this field are: 
- - `Routine`
+For indicator testing only: 
+- `Routine`
  - `Follow Up 1`
  - `Follow Up 2`
+For full pathogen testing: 
+- `Routine`
+ - `Follow-up`
+ - `Incident`
 
-### 7. Sample From
+### 8. Sample From
 **Field Name:** `sample_from`  
 **Data Type:** Text (controlled vocabulary)    
 **Optional:** No  
@@ -109,56 +125,62 @@ Index | Field Name | Description | Data Type | Optional | Controlled Vocabulary 
 **Comments:** Describes the location from which the sample was taken. Acceptable values in this field are:
  - `FPCONT` or `Final Product Container`
  - `Bulk Tank`
- - `Swabs`
 
-### 8. CPH
+### 9. CPH
 **Field Name:** `cph`  
 **Data Type:** Text (32 character limit)  
 **Optional:** No  
 **Source:** Lab 
 **Comments:** The County Parish Holding number of the producer. This will be supplied to the laboratory by the FSA when a new producer is registered for  production of raw cows’ drinking milk. The CPH will be quoted in the documentation accompanying the sample when the laboratory receives it.
 
-### 9. Producer Name
+### 10. Producer Name
 **Field Name:** `producer_name`  
 **Data Type:** Text (50 character limit)  
 **Optional:** No  
 **Source:** Lab 
 **Comments:** The name of the producer of the RCDM being sampled.
 
-### 10. Producer Address
-**Field Name:** `producer_address`  
-**Data Type:** Text (255 character limit)  
+### 11. Sample Date and Time
+**Field Name:** `sample_date_and_time`  
+**Data Type:** Datetime
 **Optional:** No  
 **Source:** Lab 
-**Comments:** The address of the RCDM production establishment from which the sample was taken.
+**Comments:** The date and time at which the sample was taken.
 
-### 11. Sample Date
-**Field Name:** `sample_date`  
-**Data Type:** Date  
+### 12. Sample Temperature at Collection
+**Field Name:** `sample_temperature_at_collection `  
+**Data Type:** Text 
 **Optional:** No  
 **Source:** Lab 
-**Comments:** The date on which the sample was taken.
+**Comments:** The temperature of the sample at the time it was collected.
 
-### 12. Start Testing Date
-**Field Name:** `start_testing_date`  
-**Data Type:** Date  
+### 13. Receipt at Lab
+**Field Name:** `receipt_at_lab`  
+**Data Type:** Datetime  
 **Optional:** No  
 **Source:** Lab 
-**Comments:** The date on which the testing of the sample began.
+**Comments:** The date and time at which the sample was received by the lab.
 
-### 13. Report Date
-**Field Name:** `report_date`  
-**Data Type:** Date  
+### 14. Testing Date and Time
+**Field Name:** `testing_date_and_time`  
+**Data Type:** Datetime  
+**Optional:** No  
+**Source:** Lab 
+**Comments:** The date and time at which the testing of the sample began.
+
+### 15. Sample Temperature at Testing
+**Field Name:** `sample_temperature_at_testing`  
+**Data Type:** Text
+**Optional:** No  
+**Source:** Lab 
+**Comments:** The temperature of the sample at the time it was tested.
+
+### 16. Report Date and Time
+**Field Name:** `report_date_and_time`  
+**Data Type:** Datetime
 **Optional:** No  
 **Source:** Lab 
 **Comments:** The date on which the results data was submitted to the FSA.
-
- ### 14. Next Sample
-**Field Name:** `next_sample`  
-**Data Type:** Text (255 character limit)  
-**Optional:** No  
-**Source:** Lab 
-**Comments:** The date, or a description of, when the next sample should be taken.
 
 ## Supported File Types
 
