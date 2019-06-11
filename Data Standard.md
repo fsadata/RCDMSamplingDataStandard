@@ -29,7 +29,7 @@ This document is written for Laboratory users who need to submit raw cows drinki
  13. [Receipt at Lab](#13-receipt-at-lab) 
  14. [Testing Date and Time](#14-testing-date-and-time)  
  15. [Sample Temperature at Testing](#15-sample-temperature-at-testing)
- 16. [Report Date and Time](#16- report-date-and-time)  
+ 16. [Report Date and Time](#16-report-date-and-time)  
 - [Supported File Types](#supported-file-types)
 - [Other Requirements](#other-requirements)
 - [File Naming Conventions](#file-naming-conventions)
